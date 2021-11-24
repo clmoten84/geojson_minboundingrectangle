@@ -3,6 +3,10 @@ package com.maxar.geojsonapp.controller;
 import com.maxar.geojsonapp.service.IGeoJsonService;
 import org.geojson.Polygon;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +32,14 @@ public class GeoJsonController {
      * @return minimum bounding rectangle (MBR) polygon
      */
     @PostMapping(value = "mbr")
-    public Polygon computeMininumBoundingRectange(@RequestBody Polygon polygon, HttpServletRequest req) {
-        return null;
+    public Object computeMininumBoundingRectangle(@RequestBody Polygon polygon, HttpServletRequest req) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>(geoJsonService.computeMinimumBoundingRectangle(polygon), headers, HttpStatus.OK);
+        }
+        catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
