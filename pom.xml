@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>GeoJsonApp</name>
     <description>GeoJsonApp</description>
+    <packaging>jar</packaging>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -60,6 +61,14 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <outputDirectory>build_jar</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
